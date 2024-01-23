@@ -6,8 +6,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AccountMapper {
-    Account mapToDomainModel(AccountEntity accountEntity) {
-        return Account.of(accountEntity.getAccountNumber(), Money.of(accountEntity.getBalance()), accountEntity.getName());
+    Account toModel(AccountEntity accountEntity) {
+        return Account.of(accountEntity.getAccountNumber(), Money.of(accountEntity.getBalance()), accountEntity.getMemberName());
+    }
+
+    AccountEntity toEntity(Account account) {
+        return AccountEntity.builder().accountNumber(account.accountNumber()).balance(account.balance().amount()).memberName(account.memberName()).build();
     }
 }
 

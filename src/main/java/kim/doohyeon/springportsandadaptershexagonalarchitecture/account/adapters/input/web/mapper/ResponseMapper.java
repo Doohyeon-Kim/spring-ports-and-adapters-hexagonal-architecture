@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ResponseMapper {
     static public ResponseEntity<GetAccountResponse> mapToGetAccountResponse(Account account) {
-        GetAccountResponse getAccountResponse = new GetAccountResponse(account.accountNumber(), account.balance(), account.name());
+        GetAccountResponse getAccountResponse = new GetAccountResponse(account.accountNumber(), account.balance(), account.memberName());
         return new ResponseEntity<>(getAccountResponse, HttpStatus.OK);
     }
 

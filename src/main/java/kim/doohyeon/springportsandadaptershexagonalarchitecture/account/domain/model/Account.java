@@ -1,16 +1,12 @@
 package kim.doohyeon.springportsandadaptershexagonalarchitecture.account.domain.model;
-
-
-import jakarta.annotation.Nullable;
 import lombok.Builder;
 import lombok.NonNull;
 
 import java.math.BigInteger;
-import java.util.Optional;
 
 
 @Builder
-public record Account(@NonNull String accountNumber, Money balance, String name) {
+public record Account(@NonNull String accountNumber, Money balance, @NonNull String memberName) {
     public TransactionHistory transfer(@NonNull Account targetAccount, @NonNull BigInteger amount) throws Exception {
         if (balance.amount().compareTo(amount) >= 0) {
             balance.minus(amount);
@@ -35,7 +31,7 @@ public record Account(@NonNull String accountNumber, Money balance, String name)
         }
     }
 
-    public static Account of(String accountNumber, Money balance, String name) {
-        return Account.builder().accountNumber(accountNumber).balance(balance).name(name).build();
+    public static Account of(@NonNull String accountNumber, Money balance, String name) {
+        return Account.builder().accountNumber(accountNumber).balance(balance).memberName(name).build();
     }
 }

@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.NonNull;
 
 import java.math.BigInteger;
+import java.util.Optional;
 
 @Builder
 public record Money(@NonNull BigInteger amount) {
@@ -30,7 +31,10 @@ public record Money(@NonNull BigInteger amount) {
     }
 
     public static Money of(BigInteger value) {
-        return Money.builder().amount(value).build();
+//        if(value == null){
+//            value = BigInteger.ZERO;
+//        }
+        return Money.builder().amount(Optional.ofNullable(value).orElse(BigInteger.ZERO)).build();
     }
 
     public Money plus(@NonNull BigInteger amount) {

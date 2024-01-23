@@ -1,26 +1,32 @@
 package kim.doohyeon.springportsandadaptershexagonalarchitecture.account.adapters.output.persistence;
 
 import jakarta.annotation.Nullable;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
 import java.math.BigInteger;
 
 @Entity
-@Table(name = "account")
-@Data
-@AllArgsConstructor
+@Table(name = "ACCOUNT")
+@Getter
 @NoArgsConstructor
 public class AccountEntity {
     @Id
-    @GeneratedValue()
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @NonNull
     private String accountNumber;
+    @NonNull
     private BigInteger balance;
-    @Nullable
-    private String name;
+    @NonNull
+    private String memberName;
+
+    @Builder
+    public AccountEntity(String accountNumber, BigInteger balance, String memberName) {
+        this.accountNumber = accountNumber;
+        this.balance = balance;
+        this.memberName = memberName;
+    }
 }
